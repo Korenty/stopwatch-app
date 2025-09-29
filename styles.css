@@ -1,0 +1,146 @@
+/* Reset default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling with light theme as default */
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+    transition: background-color 0.3s ease;
+}
+
+/* Dark theme */
+body.dark {
+    background-color: #222;
+    color: #fff;
+}
+
+/* Stopwatch container */
+.stopwatch-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    transition: background-color 0.3s ease;
+}
+
+body.dark .stopwatch-container {
+    background-color: #333;
+}
+
+/* Timer display */
+.timer-display {
+    font-family: 'Courier New', monospace;
+    font-size: 2.5rem;
+    margin: 20px 0;
+    background-color: #000;
+    color: #0f0;
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+/* Controls (buttons) */
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+#startBtn {
+    background-color: #28a745;
+    color: white;
+}
+
+#stopBtn {
+    background-color: #dc3545;
+    color: white;
+}
+
+#resetBtn {
+    background-color: #007bff;
+    color: white;
+}
+
+#lapBtn {
+    background-color: #ffc107;
+    color: black;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+#startBtn:hover { background-color: #218838; }
+#stopBtn:hover { background-color: #c82333; }
+#resetBtn:hover { background-color: #0056b3; }
+#lapBtn:hover { background-color: #e0a800; }
+
+/* Lap list */
+.lap-list {
+    max-height: 150px;
+    overflow-y: auto;
+    margin-top: 10px;
+    text-align: left;
+}
+
+.lap-list p {
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+body.dark .lap-list p {
+    border-bottom: 1px solid #555;
+}
+
+/* Theme toggle button */
+.theme-toggle {
+    background-color: #6c757d;
+    color: white;
+    margin-top: 10px;
+}
+
+.theme-toggle:hover {
+    background-color: #5a6268;
+}
+
+/* Responsive design */
+@media (max-width: 500px) {
+    .stopwatch-container {
+        padding: 15px;
+        max-width: 90%;
+    }
+
+    .timer-display {
+        font-size: 2rem;
+    }
+
+    .controls {
+        flex-wrap: wrap;
+    }
+
+    button {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+}
