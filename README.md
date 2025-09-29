@@ -1,6 +1,8 @@
 # Stopwatch App
 
-A functional stopwatch application built with HTML, CSS, and JavaScript for AltSchool Africa's, School of Engineering,Cloud Engineering Diploma 1st semister exam project. Features include start, stop, reset, lap functionality, millisecond precision, responsive design, and a dark/light theme toggle.
+A functional stopwatch application built with HTML, CSS, and JavaScript for AltSchool Africa's, School of Engineering, Cloud Engineering Diploma 1st semister exam project. 
+
+Features include start, stop, reset, lap functionality, millisecond precision, responsive design, and a dark/light theme toggle.
 
 ## Features
 - Start, Stop, and Reset buttons
@@ -10,7 +12,7 @@ A functional stopwatch application built with HTML, CSS, and JavaScript for AltS
 - Dark/Light theme toggle
 
 ## Deployment
-Hosted on GitHub Pages: [Insert GitHub Pages URL after setup]
+Hosted on GitHub Pages: [[Insert GitHub Pages URL after setup](https://korenty.github.io/stopwatch-app/)]
 
 ## How to Run
 1. Clone the repository.
