@@ -3,20 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linked Files Example</title>
+    <title>Minimalist Stopwatch</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header>
-        <h1>My Separate File Website</h1>
-        <p class="subtitle">This content is styled by **style.css** and interactive because of **script.js**.</p>
-    </header>
+    <a href="#" id="aboutLink" class="about-link">About</a>
 
-    <main>
-        <button id="colorChangeButton">Click Me to Change Color</button>
-        <p id="message">The background color will change when you click the button above.</p>
-    </main>
+    <div class="stopwatch-container">
+        
+        <button id="resetBtn" class="clear-text">CLEAR</button>
+        
+        <div id="timer" class="display">00:00:00</div>
+        
+        <button id="startStopBtn" class="main-button">
+            start/stop
+        </button>
+        
+    </div>
+
+    <footer class="copyright">
+        Copyright © 2024 Your Name
+    </footer>
 
     <script src="script.js"></script>
 
