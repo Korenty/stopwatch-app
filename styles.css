@@ -1,53 +1,145 @@
-/* This file is named "style.css"
-    and is linked to "index.html" 
-*/
+/* style.css: Minimalist Stopwatch Design */
 
+/* ----------------------
+   GLOBAL & LAYOUT
+   ---------------------- */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    color: #333;
-    margin: 0;
-    padding: 20px;
-    transition: background-color 0.5s ease; /* For the JS interaction */
-}
-
-header {
-    text-align: center;
-    padding: 20px;
-    background-color: #e0e0e0;
-    border-radius: 8px;
-    margin-bottom: 30px;
-}
-
-h1 {
-    color: #0056b3;
-}
-
-.subtitle {
-    font-style: italic;
-    color: #555;
-}
-
-#colorChangeButton {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #007bff;
+    background-color: #B31B1B; /* Deep Red from the image */
     color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    display: block;
-    margin: 20px auto;
-    transition: background-color 0.3s;
+    margin: 0;
+    min-height: 100vh;
+    /* Center the main content using Flexbox */
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+    transition: background-color 0.5s;
+    position: relative; /* For the absolute positioned elements */
 }
 
-#colorChangeButton:hover {
-    background-color: #0056b3;
-}
-
-#message {
-    text-align: center;
+/* ----------------------
+   TOP BAR (ABOUT)
+   ---------------------- */
+.about-link {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 1em;
     font-weight: bold;
-    margin-top: 15px;
-    padding: 10px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border: 1px solid transparent;
+    transition: color 0.3s, border-color 0.3s;
+}
+
+.about-link:hover {
+    color: #ffd700;
+}
+
+/* ----------------------
+   STOPWATCH ELEMENTS
+   ---------------------- */
+.stopwatch-container {
+    /* To ensure the inner elements are aligned */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1; /* Allows container to take up available space for centering */
+    width: 100%;
+}
+
+.clear-text {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.8); /* Slightly muted white */
+    font-size: 2em;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.clear-text:hover {
+    color: white;
+}
+
+.display {
+    font-family: 'Digital-7', monospace; /* Digital look */
+    font-size: 5em;
+    font-weight: 300;
+    letter-spacing: 5px;
+    margin-bottom: 80px;
+    color: white;
+}
+
+/* ----------------------
+   MAIN BUTTON
+   ---------------------- */
+.main-button {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%; /* Circle shape */
+    background-color: #FFD700; /* Yellow/Gold color */
+    color: #333;
+    font-size: 1.1em;
+    font-weight: bold;
+    border: none;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+}
+
+.main-button:hover {
+    background-color: #ffeb3b; /* Lighter yellow on hover */
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px);
+}
+
+.main-button:active {
+    transform: translateY(0);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* ----------------------
+   FOOTER
+   ---------------------- */
+.copyright {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.75em;
+    color: rgba(255, 255, 255, 0.5); /* Muted copyright text */
+}
+
+/* ----------------------
+   DARK MODE (BONUS)
+   ---------------------- */
+body.dark-theme {
+    background-color: #121212; /* Dark background */
+    color: #e0e0e0;
+}
+
+body.dark-theme .clear-text {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+body.dark-theme .display {
+    color: #00ff00; /* Green digital text */
+}
+
+body.dark-theme .main-button {
+    background-color: #388e3c; /* Darker, functional color */
+    color: white;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+}
+
+body.dark-theme .copyright {
+    color: rgba(255, 255, 255, 0.4);
 }
