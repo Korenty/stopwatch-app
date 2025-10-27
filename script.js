@@ -114,4 +114,34 @@ function updateButtonStates() {
     stopBtn.disabled = !isRunning;
     
     // *** THIS IS THE FIX ***
-    // Reset should be enabled IF the timer is running OR if it's paused with
+    // Reset should be enabled IF the timer is running OR if it's paused with time on it.
+    // It should ONLY be disabled if the timer is at 0 and not running.
+    resetBtn.disabled = (elapsedTime === 0 && !isRunning);
+    
+    // Lap button should only work while the timer is actively running.
+    lapBtn.disabled = !isRunning;
+}
+
+/**
+ * Toggles the 'dark-mode' class on the body and updates the button icon.
+ */
+function toggleTheme() {
+    body.classList.toggle('dark-mode');
+
+    if (body.classList.contains('dark-mode')) {
+        themeToggle.textContent = '☀️'; // Sun icon
+    } else {
+        themeToggle.textContent = '🌙'; // Moon icon
+    }
+}
+
+// --- Event Listeners ---
+// Initialize button states on page load
+updateButtonStates(); 
+
+// Add click handlers
+startBtn.addEventListener('click', startTimer);
+stopBtn.addEventListener('click', stopTimer);
+resetBtn.addEventListener('click', resetTimer);
+lapBtn.addEventListener('click', recordLap);
+themeToggle.addEventListener('click', toggleTheme);
