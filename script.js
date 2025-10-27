@@ -9,23 +9,23 @@ const themeToggle = document.getElementById('themeToggle');
 const body = document.body;
 
 // --- State Variables ---
-let timerInterval = null;
-let startTime = 0;
-let elapsedTime = 0;
-let isRunning = false;
-let lapCounter = 1;
+let timerInterval = null; // Holds the setInterval ID
+let startTime = 0;        // When the timer was started (in ms)
+let elapsedTime = 0;      // Total time elapsed (in ms)
+let isRunning = false;    // Timer status
+let lapCounter = 1;       // Lap number
 
 // --- Core Functions ---
 
 function startTimer() {
-    if (isRunning) return; // Prevent multiple intervals
+    if (isRunning) return; // Prevent multiple timers
 
     isRunning = true;
-    // Date.now() is ms since epoch.
-    // Subtracting elapsedTime ensures we resume from where we left off.
+    // Get start time by taking current time and subtracting any previously elapsed time
+    // This allows "resume" to work correctly
     startTime = Date.now() - elapsedTime;
 
-    // Update time every 10ms for smooth millisecond display
+    // Update the timer display every 10 milliseconds
     timerInterval = setInterval(updateTime, 10);
 
     updateButtonStates();
@@ -37,7 +37,7 @@ function stopTimer() {
     isRunning = false;
     clearInterval(timerInterval);
     
-    // We already have the total elapsedTime from the updateTime function
+    // elapsedTime is already up-to-date from the last updateTime call
     updateButtonStates();
 }
 
@@ -68,7 +68,8 @@ function recordLap() {
     const lapTime = formatTime(elapsedTime);
     
     const li = document.createElement('li');
-    li.innerHTML = `<span>Lap ${lapCounter}:</span> ${lapTime}`;
+    // Added <span> for better styling
+    li.innerHTML = `<span>Lap ${lapCounter}</span><span>${lapTime}</span>`;
     
     // Add new lap to the top of the list
     lapsList.prepend(li);
@@ -84,43 +85,33 @@ function updateTime() {
     timerDisplay.innerHTML = formatTime(elapsedTime);
 }
 
+/**
+ * Formats time in milliseconds into HH:MM:SS.ms string
+ * @param {number} timeInMs - The time in milliseconds
+ * @returns {string} - The formatted time string
+ */
 function formatTime(timeInMs) {
-    // Calculate hours, minutes, seconds, and milliseconds
     let milliseconds = Math.floor((timeInMs % 1000));
     let seconds = Math.floor((timeInMs / 1000) % 60);
     let minutes = Math.floor((timeInMs / (1000 * 60)) % 60);
     let hours = Math.floor((timeInMs / (1000 * 60 * 60)) % 24);
 
-    // Format with leading zeros
+    // Add leading zeros
     const formattedHours = hours.toString().padStart(2, '0');
     const formattedMinutes = minutes.toString().padStart(2, '0');
     const formattedSeconds = seconds.toString().padStart(2, '0');
     const formattedMilliseconds = milliseconds.toString().padStart(3, '0');
 
+    // Return as a single string with the span for milliseconds
     return `${formattedHours}:${formattedMinutes}:${formattedSeconds}<span class="milliseconds">.${formattedMilliseconds}</span>`;
 }
 
+/**
+ * Manages which buttons are enabled or disabled based on the timer's state.
+ */
 function updateButtonStates() {
     startBtn.disabled = isRunning;
     stopBtn.disabled = !isRunning;
-    resetBtn.disabled = elapsedTime === 0;
-    lapBtn.disabled = !isRunning;
-}
-
-function toggleTheme() {
-    body.classList.toggle('dark-mode');
-
-    // Update toggle button icon
-    if (body.classList.contains('dark-mode')) {
-        themeToggle.textContent = '☀️'; // Sun icon for light mode
-    } else {
-        themeToggle.textContent = '🌙'; // Moon icon for dark mode
-    }
-}
-
-// --- Event Listeners ---
-startBtn.addEventListener('click', startTimer);
-stopBtn.addEventListener('click', stopTimer);
-resetBtn.addEventListener('click', resetTimer);
-lapBtn.addEventListener('click', recordLap);
-themeToggle.addEventListener('click', toggleTheme);
+    
+    // *** THIS IS THE FIX ***
+    // Reset should be enabled IF the timer is running OR if it's paused with
