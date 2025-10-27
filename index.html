@@ -3,44 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fanuel's Stopwatch</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Stopwatch App</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-    <main class="stopwatch-container">
-        <button id="themeToggle" class="theme-toggle">🌙</button>
-
+    <div class="stopwatch-container">
         <h1>Stopwatch</h1>
-
-        <div class="timer-display" id="timerDisplay">
-            00:00:00<span class="milliseconds">.000</span>
-        </div>
-
+        <div class="timer-display" id="timer">00:00:00.000</div>
         <div class="controls">
-            <button id="startBtn" class="btn btn-start">Start</button>
-            <button id="stopBtn" class="btn btn-stop" disabled>Stop</button>
-            <button id="resetBtn" class="btn btn-reset" disabled>Reset</button>
-            <button id="lapBtn" class="btn btn-lap" disabled>Lap</button>
+            <button id="startBtn">Start</button>
+            <button id="stopBtn">Stop</button>
+            <button id="resetBtn">Reset</button>
+            <button id="lapBtn">Lap</button>
         </div>
-
-        <div class="laps-container">
-            <h2>Laps</h2>
-            <ul id="lapsList">
-                </ul>
-        </div>
-
-        <section class="about">
-            <h3>About This Project</h3>
-            <p>This is a beginner-friendly stopwatch project built with vanilla HTML, CSS, and JavaScript. It demonstrates DOM manipulation, event handling, and interval-based timing.</p>
-        </section>
-
-    </main>
-
-    <footer>
-        <p>&copy; 2025 Fanuel Debebe. All rights reserved.</p>
-    </footer>
-
+        <div class="lap-list" id="laps"></div>
+        <button class="theme-toggle" id="themeToggle">Toggle Theme</button>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
