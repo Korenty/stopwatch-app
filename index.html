@@ -3,22 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stopwatch App</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Stopwatch</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="stopwatch-container">
-        <h1>Stopwatch</h1>
-        <div class="timer-display" id="timer">00:00:00.000</div>
-        <div class="controls">
-            <button id="startBtn">Start</button>
-            <button id="stopBtn">Stop</button>
-            <button id="resetBtn">Reset</button>
-            <button id="lapBtn">Lap</button>
-        </div>
-        <div class="lap-list" id="laps"></div>
-        <button class="theme-toggle" id="themeToggle">Toggle Theme</button>
+    <div class="top-right">
+        <a href="#" id="aboutLink">About</a>
     </div>
+
+    <div class="container">
+        <h2 id="clearButton">CLEAR</h2>
+        <div id="display">
+            <span id="minutes">00</span>:<span id="seconds">00</span>:<span id="milliseconds">00</span>
+        </div>
+        <button id="startStopBtn">start/stop</button>
+        <button id="lapBtn" style="display: none;">Lap</button> <!-- Hidden by default, shown when started --><button id="modeToggleBtn">Dark/Bright Mode</button>
+        
+        <div id="lapsContainer">
+            <h3>Laps:</h3>
+            <ul id="lapsList"></ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        Copyright © 2025 Fanuel Debebe
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
