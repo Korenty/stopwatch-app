@@ -3,32 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stopwatch</title>
+    <title>Linked Files Example</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="top-right">
-        <a href="#" id="aboutLink">About</a>
-    </div>
 
-    <div class="container">
-        <h2 id="clearButton">CLEAR</h2>
-        <div id="display">
-            <span id="minutes">00</span>:<span id="seconds">00</span>:<span id="milliseconds">00</span>
-        </div>
-        <button id="startStopBtn">start/stop</button>
-        <button id="lapBtn" style="display: none;">Lap</button> <!-- Hidden by default, shown when started --><button id="modeToggleBtn">Dark/Bright Mode</button>
-        
-        <div id="lapsContainer">
-            <h3>Laps:</h3>
-            <ul id="lapsList"></ul>
-        </div>
-    </div>
+    <header>
+        <h1>My Separate File Website</h1>
+        <p class="subtitle">This content is styled by **style.css** and interactive because of **script.js**.</p>
+    </header>
 
-    <div class="footer">
-        Copyright © 2025 Fanuel Debebe
-    </div>
+    <main>
+        <button id="colorChangeButton">Click Me to Change Color</button>
+        <p id="message">The background color will change when you click the button above.</p>
+    </main>
 
     <script src="script.js"></script>
+
 </body>
 </html>
