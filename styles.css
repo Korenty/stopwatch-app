@@ -1,115 +1,53 @@
+/* This file is named "style.css"
+    and is linked to "index.html" 
+*/
+
 body {
     font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column; /* Changed to column to stack elements */
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    background-color: #f4f4f9;
+    color: #333;
     margin: 0;
-    background-color: #d82b2b; /* The reference red background */
-    color: white; /* Default text color for visibility on red */
-    position: relative; /* For absolute positioning of top-right and footer */
-}
-
-/* Dark mode styles */
-body.dark-mode {
-    background-color: #333;
-    color: white;
-}
-
-/* Bright mode styles */
-body.bright-mode {
-    background-color: #d82b2b; /* The reference red */
-    color: white;
-}
-
-.top-right {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-}
-
-.top-right a {
-    color: white;
-    text-decoration: none;
-    font-size: 1.1em;
-    font-weight: bold;
-}
-
-.top-right a:hover {
-    text-decoration: underline;
-}
-
-
-.container {
-    text-align: center;
-    background-color: transparent; /* No specific container background needed */
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: none; /* No shadow needed for the container itself */
-    max-width: 90%; /* To prevent it from stretching too much */
-    margin-top: 50px; /* Adjust if needed to push content down from "About" */
+    transition: background-color 0.5s ease; /* For the JS interaction */
 }
 
-#display {
-    font-size: 4em; /* Larger font for the timer */
-    margin-bottom: 20px;
-    font-weight: bold;
-    letter-spacing: 2px;
+header {
+    text-align: center;
+    padding: 20px;
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 30px;
 }
 
-#clearButton {
-    font-size: 1.5em; /* Larger CLEAR text */
-    cursor: pointer;
-    color: rgba(255, 255, 255, 0.8); /* Slightly muted white for CLEAR */
-    margin-bottom: 25px;
+h1 {
+    color: #0056b3;
 }
 
-#clearButton:hover {
-    color: white;
+.subtitle {
+    font-style: italic;
+    color: #555;
 }
 
-/* Start/Stop Button Styling */
-#startStopBtn {
-    background-color: #fdd835; /* Yellow from reference */
-    color: #333; /* Dark text for contrast */
-    border: none;
-    padding: 20px 40px; /* Larger padding */
-    border-radius: 50px; /* Fully rounded pill shape */
-    font-size: 1.8em; /* Larger font */
-    cursor: pointer;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Distinct shadow */
-    transition: all 0.2s ease-in-out;
-    margin-top: 20px;
-    font-weight: bold;
-    text-transform: lowercase; /* As in the reference image */
-}
-
-#startStopBtn:hover {
-    background-color: #ffe082; /* Lighter yellow on hover */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-    transform: translateY(-2px);
-}
-
-/* Other Buttons (Lap, Mode Toggle) - Adjust if you want them to match the yellow style */
-#lapBtn, #modeToggleBtn {
-    background-color: #5a5a5a; /* A default dark grey */
-    color: white;
-    border: none;
+#colorChangeButton {
     padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
     border-radius: 5px;
-    font-size: 1em;
     cursor: pointer;
-    margin: 10px;
-    transition: background-color 0.2s;
+    display: block;
+    margin: 20px auto;
+    transition: background-color 0.3s;
 }
 
-#lapBtn:hover, #modeToggleBtn:hover {
-    background-color: #777;
+#colorChangeButton:hover {
+    background-color: #0056b3;
 }
 
-#lapsContainer {
-    margin-top: 30px;
-    width: 80%;
-    max-width: 400px;
-    text-align: left
+#message {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 15px;
+    padding: 10px;
+}
