@@ -1,135 +1,126 @@
-// script.js: JavaScript Logic for the Minimalist Stopwatch
+// --- DOM Element Selection ---
+const timerDisplay = document.getElementById('timerDisplay');
+const startBtn = document.getElementById('startBtn');
+const stopBtn = document.getElementById('stopBtn');
+const resetBtn = document.getElementById('resetBtn');
+const lapBtn = document.getElementById('lapBtn');
+const lapsList = document.getElementById('lapsList');
+const themeToggle = document.getElementById('themeToggle');
+const body = document.body;
 
-// ----------------------
-// 1. DOM Elements
-// ----------------------
-const timerDisplay = document.getElementById('timer');
-const startStopBtn = document.getElementById('startStopBtn');
-const resetBtn = document.getElementById('resetBtn'); // The "CLEAR" text
-const aboutLink = document.getElementById('aboutLink');
-
-
-// ----------------------
-// 2. Timer Variables
-// ----------------------
-let startTime = 0;
-// We'll only track milliseconds, as the display only shows H:M:S
-let elapsedTime = 0; 
+// --- State Variables ---
 let timerInterval = null;
+let startTime = 0;
+let elapsedTime = 0;
 let isRunning = false;
+let lapCounter = 1;
 
+// --- Core Functions ---
 
-// ----------------------
-// 3. Formatting Functions
-// ----------------------
-
-// Pad numbers with leading zeros (e.g., 5 -> 05)
-function pad(num) {
-    return num < 10 ? `0${num}` : num;
-}
-
-/**
- * Converts milliseconds to HH:MM:SS format (as per the image design).
- * We will ignore milliseconds in the display, but track them internally.
- */
-function formatTime(ms) {
-    // Only hours, minutes, seconds are visible on the display
-    const hours = Math.floor(ms / (1000 * 60 * 60));
-    const minutes = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((ms % (1000 * 60)) / 1000);
-    
-    // The format required by the display is HH:MM:SS
-    return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
-}
-
-
-// ----------------------
-// 4. Stopwatch Logic
-// ----------------------
-
-/**
- * Toggles between Start and Stop functionality.
- */
-function startStop() {
-    if (isRunning) {
-        // Current state is running -> Stop the timer
-        stopTimer();
-    } else {
-        // Current state is stopped -> Start the timer
-        startTimer();
-    }
-}
-
-/**
- * Starts the timer.
- */
 function startTimer() {
+    if (isRunning) return; // Prevent multiple intervals
+
     isRunning = true;
-    
-    // Set the startTime relative to the current time minus any elapsed time
+    // Date.now() is ms since epoch.
+    // Subtracting elapsedTime ensures we resume from where we left off.
     startTime = Date.now() - elapsedTime;
-    
-    // Update the display at a precise interval (1000ms for seconds)
-    timerInterval = setInterval(() => {
-        elapsedTime = Date.now() - startTime;
-        timerDisplay.textContent = formatTime(elapsedTime);
-    }, 1000); // 1-second interval for H:M:S display
-    
-    // Update button text to reflect the next action
-    startStopBtn.textContent = 'stop';
+
+    // Update time every 10ms for smooth millisecond display
+    timerInterval = setInterval(updateTime, 10);
+
+    updateButtonStates();
 }
 
-/**
- * Pauses the timer.
- */
 function stopTimer() {
+    if (!isRunning) return;
+
     isRunning = false;
-    
-    // Stop the timer loop
     clearInterval(timerInterval);
-    timerInterval = null;
     
-    // Update button text to reflect the next action
-    startStopBtn.textContent = 'start/stop';
+    // We already have the total elapsedTime from the updateTime function
+    updateButtonStates();
 }
 
-/**
- * Resets the timer to 00:00:00.
- */
 function resetTimer() {
-    // Stop the timer, but only if it's currently running
+    // Stop the timer if it's running
     if (isRunning) {
-        stopTimer();
+        clearInterval(timerInterval);
     }
 
+    // Reset all state variables
+    isRunning = false;
     elapsedTime = 0;
-    timerDisplay.textContent = '00:00:00';
-    startStopBtn.textContent = 'start/stop'; // Ensure button is set to initial text
+    startTime = 0;
+    lapCounter = 1;
+
+    // Reset display
+    timerDisplay.innerHTML = '00:00:00<span class="milliseconds">.000</span>';
+    
+    // Clear laps
+    lapsList.innerHTML = '';
+
+    updateButtonStates();
 }
 
-/**
- * Toggles the dark/light theme (Bonus feature, triggered by "About").
- */
+function recordLap() {
+    if (!isRunning) return; // Can't record a lap if timer isn't running
+
+    const lapTime = formatTime(elapsedTime);
+    
+    const li = document.createElement('li');
+    li.innerHTML = `<span>Lap ${lapCounter}:</span> ${lapTime}`;
+    
+    // Add new lap to the top of the list
+    lapsList.prepend(li);
+    lapCounter++;
+}
+
+// --- Helper Functions ---
+
+function updateTime() {
+    const currentTime = Date.now();
+    elapsedTime = currentTime - startTime; // Total elapsed ms
+    
+    timerDisplay.innerHTML = formatTime(elapsedTime);
+}
+
+function formatTime(timeInMs) {
+    // Calculate hours, minutes, seconds, and milliseconds
+    let milliseconds = Math.floor((timeInMs % 1000));
+    let seconds = Math.floor((timeInMs / 1000) % 60);
+    let minutes = Math.floor((timeInMs / (1000 * 60)) % 60);
+    let hours = Math.floor((timeInMs / (1000 * 60 * 60)) % 24);
+
+    // Format with leading zeros
+    const formattedHours = hours.toString().padStart(2, '0');
+    const formattedMinutes = minutes.toString().padStart(2, '0');
+    const formattedSeconds = seconds.toString().padStart(2, '0');
+    const formattedMilliseconds = milliseconds.toString().padStart(3, '0');
+
+    return `${formattedHours}:${formattedMinutes}:${formattedSeconds}<span class="milliseconds">.${formattedMilliseconds}</span>`;
+}
+
+function updateButtonStates() {
+    startBtn.disabled = isRunning;
+    stopBtn.disabled = !isRunning;
+    resetBtn.disabled = elapsedTime === 0;
+    lapBtn.disabled = !isRunning;
+}
+
 function toggleTheme() {
-    document.body.classList.toggle('dark-theme');
+    body.classList.toggle('dark-mode');
+
+    // Update toggle button icon
+    if (body.classList.contains('dark-mode')) {
+        themeToggle.textContent = '☀️'; // Sun icon for light mode
+    } else {
+        themeToggle.textContent = '🌙'; // Moon icon for dark mode
+    }
 }
 
-
-// ----------------------
-// 5. Event Listeners
-// ----------------------
-
-// Single button handles both start and stop
-startStopBtn.addEventListener('click', startStop);
-
-// "CLEAR" text acts as the reset button
+// --- Event Listeners ---
+startBtn.addEventListener('click', startTimer);
+stopBtn.addEventListener('click', stopTimer);
 resetBtn.addEventListener('click', resetTimer);
-
-// "About" link triggers the dark/light theme toggle
-aboutLink.addEventListener('click', (e) => {
-    e.preventDefault(); // Prevent the link from jumping the page
-    toggleTheme();
-});
-
-// Initial state setup
-resetTimer(); 
+lapBtn.addEventListener('click', recordLap);
+themeToggle.addEventListener('click', toggleTheme);
